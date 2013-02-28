@@ -6,10 +6,12 @@ class Domain(models.Model):
 
 
 class _AMDB_Obj(models.Model):
+  pass
+
 
 class Observation(_AMDB_Obj):
-  blob = models.Whatever()
-  description = models.CharFlied(max_length=256)
+  # blob = models.r()
+  description = models.CharField(max_length=256)
 
   def __unicode__(self):
     return self.description
@@ -19,7 +21,7 @@ class Assertion(_AMDB_Obj):
   domain = models.ForeignKey(Domain)
 
 class Implication(Assertion):
-  derivation = models.ManyToManyField(Assertion)
+  derivation = models.ManyToManyField(Assertion, related_name='d+')
 
 
 class Action(_AMDB_Obj):
