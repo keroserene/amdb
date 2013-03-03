@@ -4,12 +4,14 @@
 {% block content %}
 <h1>AMdb</h1>
 
-<span>
+<div>
 View Mode: NA
-</span>
+</div>
 
-<h3>observations</h3>
-<a href="">[+]add</a><br/>
+<div class="box">
+<h3>observations
+<a class="add" href="">[+] new</a><br/>
+</h3>
 {% if obs_list %}
   <ul class="obj-list">
   {% for obs in obs_list %}
@@ -17,10 +19,14 @@ View Mode: NA
   {% endfor %}
 </ul>
 {% else %}
-  <p class="note">No Observations.</p>
+  <p class="note">[No observations yet]</p>
 {% endif %}
+</div>
 
-<h3>assertions</h3>
+<div class="box">
+<h3>assertions
+<a class="add" href="">[+] new</a><br/>
+</h3>
 {% if ass_list %}
   <ul class="obj-list">
   {% for ass in ass_list %}
@@ -28,10 +34,14 @@ View Mode: NA
   {% endfor %}
   </ul>
 {% else %}
-  <p class="note">No Assertions.</p>
+  <p class="note">[No assertions yet]</p>
 {% endif %}
+</div>
 
-<h3>capabilities</h3>
+<div class="box">
+<h3>capabilities
+<a class="add" href="">[+] new</a><br/>
+</h3>
 {% if cap_list %}
   <ul class="obj-list">
   {% for cap in cap_list %}
@@ -39,11 +49,15 @@ View Mode: NA
   {% endfor %}
   </ul>
 {% else %}
-  <p class="note">No Capabilities.</p>
+  <p class="note">[No capabilities yet]</p>
 {% endif %}
+</div>
 
-
-
+<div class="ops">
+<a href="/">Help</a>
+<a href="/">Info</a>
+<a href="/">Nuke All The Things</a>
+</div>
 
 <h3>interact</h3>
 <form action="{% url 'observation' 0 %}" method="post">
