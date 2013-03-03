@@ -2,6 +2,7 @@ body {
   font-family: Eurostile, Verdana, Arial, sans-serif;
   font-size: 11px;
   background-color: #fff;
+  padding-top: 11px;
 }
 
 a {
@@ -9,43 +10,72 @@ a {
   color: #33a;
 }
 a:hover { color: #88a; }
-
-h1, h2, h3, h4, h5, h6 { font-variant: small-caps; }
-h3 {
-  margin: 2px;
+ul { margin: 0; }
+h1, h2, h3, h4, h5, h6 { 
+  font-variant: small-caps;
   padding: 2px;
+  margin: 2px;
+  cursor: default;
 }
 
-.version-label {
-  position: fixed;
-  top: 0; right: 0;
+.header {
+  position: fixed; top: 0; left: 0;
   background-color: #000;
   color: #fff;
   margin: 0;
   display: block;
   width: 100%;
-  text-align: right;
+  font-size: 9px;
+  padding: 1px 4px 3px;
 }
-.obs-list {
+.version-label {
+  position: fixed;
+  text-align: right;
+  right: 4px;
+}
+
+.ops {
+  background-color: #222;
+  width: 100%;
+}
+.ops a {
+  display: inline-block;
+  color: #fff;
+  padding: 2px 24px;
+  margin: 0 0;
+  background-color: #000;
+}
+.ops a:hover {
+  color: #000;
+  background-color: #fff;
+}
+.deets {
+  list-style: square;
+  border: 1px solid #888;
+  padding-top: 4px;
+}
+
+.obj-list {
   list-style: none;
   border: 1px solid #eee;
   display: inline-block;
   margin: 2px; padding: 1px;
   font-size: 10px;
 }
-.obs-list a {
+.obj-list a {
   background-color: #fff;
   display: block;
   padding: 2px 3px;
   min-width: 200px;
   color: #000;
 }
-.obs-list a:hover {
+.obj-list a:hover {
   background-color: #000;
   color: #fff;
 }
 
-.observation {
+.obj-entry {
   border: 1px solid #fff;
   padding: 3px;
 }
+

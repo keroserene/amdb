@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}obs{% endblock %}
+
+{% block content %}
+<h2>{% block object_class %}{% endblock %} Details</h2>
+
+<ul class="deets">{% block details %}{% endblock %}</ul>
+
+<div class="ops">
+  <a href="{% url 'edit' 0 %}">edit</a>
+  <a href="{% url 'index' %}">back</a>
+</div>
+
+
+{% endblock %}

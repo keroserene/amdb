@@ -1,0 +1,9 @@
+{% extends 'amdb/details.html' %}
+{% block title %}Observation{% endblock %}
+{% block object_class %}Observation{% endblock %}
+{% block details %}
+<li>ID: {{ obs.id }}</li>
+<li>Description: "{{ obs.description }}"</li>
+<li>Domain: "{{ obs.domain }}"</li>
+<li>Blob: {{ obs.blob }}</li>
+{% endblock %}
