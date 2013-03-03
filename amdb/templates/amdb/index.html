@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}amdb{% endblock %}
+
+{% block content %}
+
+<h1>AMdb</h1>
+
+<p class="version-label">&alpha; - prototype v0.01</p>
+
+<p>
+View Mode:
+meow
+</p>
+<h3>observations</h3>
+<ul class="obs-list">
+{% for obs in obs_list %}
+  <li>
+  <a href="/obs/{{ obs.id }}/">{{ obs.description }}</a>
+  </li>
+{% endfor %}
+</ul>
+
+<h3>assertions</h3>
+
+<h3>implications</h3>
+
+<h3>capabilities</h3>
+
+<h3>interact</h3>
+<form action="{% url 'observation' 0 %}" method="post">
+{% csrf_token %}
+
+<input type='radio' name='meow' id='haha' value='meowww' />
+<input type='radio' name='meow' id='haha2' value='meowww' />
+
+</form>
+
+{% endblock %}

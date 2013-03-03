@@ -23,7 +23,6 @@ class Assertion(_AMDB_Obj):
 class Implication(Assertion):
   derivation = models.ManyToManyField(Assertion, related_name='d+')
 
-
 class Action(_AMDB_Obj):
   pass
 
