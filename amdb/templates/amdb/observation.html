@@ -1,11 +1,16 @@
 {% if edit %}
 
-<form action="POST">
-<li>ID: {{ obj.id }}</li>
-<li>Description: <input type="text" value="{{ obj.description }}" /></li>
-<li>Domain: "{{ obj.domain }}"</li>
-<li>Blob: {{ obj.blob }}</li>
-</form>
+{{ edit.as_ul }}
+
+{% for field in edit %}
+{% comment %}
+<li>
+{{ field.errors }}{{ field.help_text }}
+{{ field.label_tag }}: {{ field }}
+{{ field.value }}
+</li>
+{% endcomment %}
+{% endfor %}
 
 {% else %}
 

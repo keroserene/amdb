@@ -6,6 +6,8 @@
 {% if edit  %} - Edit Mode{% endif %}
 </h2>
 
+<form action="" method="post">
+{% csrf_token %}
 <ul class="deets">
   {% include templ_path %}
 </ul>
@@ -13,7 +15,7 @@
 <div class="ops">
 
   {% if edit %}
-    <a href="{% url 'done' obj.id %}">Save</a>
+    <input type="submit" value="Save"/>
     <a href="{% url 'index' %}">Cancel</a>
   {% else %}
     <a href="{% url 'edit' obj_class obj.id %}">Edit</a>
@@ -21,5 +23,6 @@
   {% endif %}
 
 </div>
+</form>
 
 {% endblock %}

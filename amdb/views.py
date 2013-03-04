@@ -1,6 +1,7 @@
 from django import template
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404
+from django import forms
 
 from models import Observation, Assertion, Capability
 
@@ -28,8 +29,19 @@ def _AMDBcontext(obj_class, obj, edit):
           'obj': obj,
           'edit': edit}
 
+class ObservationForm(forms.ModelForm):
+  class Meta:
+    model = Observation
+
 def observation(request, observation_id, edit=False):
   obs = get_object_or_404(Observation, pk=observation_id)
+  if edit:
+    if 'POST' == request.method:
+      edit = ObservationForm(request.POST, instance=obs)
+      if edit.is_valid():
+        edit.save()
+        return observation(request, observation_id)
+    edit = ObservationForm(instance=obs)
   return render(request, 'amdb/details.html', _AMDBcontext('observation', obs, edit))
  
 def assertion(request, assertion_id):
