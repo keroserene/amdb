@@ -17,7 +17,15 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2px;
   cursor: default;
 }
-
+input {
+  display: block;
+}
+select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #666;
+  display: block;
+}
 .header {
   position: fixed; top: 0; left: 0;
   background-color: #000;
@@ -33,7 +41,9 @@ h1, h2, h3, h4, h5, h6 {
   text-align: right;
   right: 4px;
 }
-
+.view-mode {
+  color: #888;
+}
 
 .box {
   position: relative;
@@ -97,7 +107,24 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #888;
   padding: 4px 24px;
 }
-
+.deets p {
+  position: relative;
+}
+.errorlist {
+  color: #800;
+  position: absolute;
+  background-color: #eee;
+  top: 0; right: 0;
+}
+.deets input {
+  display: block;
+  width: 90%;
+  margin: 8px; padding: 6px 4px;
+  border: 1px solid #bbb;
+}
+.deets input:hover {
+  background-color: #ffe;
+}
 .obj-list {
   list-style: none;
   margin: 0; padding: 1px;
@@ -120,3 +147,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 3px;
 }
 
+.helptext {
+  color: #989;
+}
+.todo {
+  color: #800;
+}

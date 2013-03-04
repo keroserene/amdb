@@ -18,26 +18,50 @@ class Observation(_AMDB_Obj):
   def __unicode__(self):
     return self.description
 
+  def get_absolute_url(self):
+    return '/observation/%i/' % self.id
+
 DOMAINS = [
-  ('Syria', 'lol'),
-  ('China', 'haha'),
+  ('Lulz', 'Internets'),
+  ('Rawr', 'The Grue'),
 ]
 
 class Assertion(_AMDB_Obj):
-  basis = models.ForeignKey(Observation)
   description = models.CharField(max_length=256)
+  basis = models.ForeignKey(
+      Observation,
+      help_text='Derivation frow observation(s).')
   domain = models.CharField(max_length=8, choices=DOMAINS)
   # domain = models.ForeignKey(Domain)
 
   def __unicode__(self):
-    return '%s : %s' % (self.basis, self.description)
+    return '%s --> %s [%s]' % (self.basis, self.description, self.domain)
+
+  def get_absolute_url(self):
+    return '/assertion/%i/' % self.id
+
 
 class Implication(Assertion):
-  derivation = models.ManyToManyField(Assertion, related_name='d+')
+  derivation = models.ManyToManyField(
+      Assertion, related_name='d+',
+      help_text='Derivation from Assertion(s) and Implication(s).')
 
-class Action(_AMDB_Obj):
-  pass
+  def get_absolute_url(self):
+    return '/implication/%i/' % self.id
+
+#class Action(_AMDB_Obj):
+#  def __unicode__(self):
+#    return 'Actor %s acts upon asset %s' ('[REDACTED]', '[REDACTED]')
 
 class Capability(_AMDB_Obj):
-  derivation = models.ManyToManyField(Assertion)
-  action = models.ForeignKey(Action)
+  action = models.CharField(max_length=256)
+  derivation = models.ManyToManyField(
+      Assertion,
+      help_text='Derivation from Assertion(s) and Implication(s).')
+  # action = models.ForeignKey(Action)
+  
+  def __unicode__(self):
+    return '%s (%s)' % (self.action, self.derivation.all())
+
+  def get_absolute_url(self):
+    return '/capability/%i/' % self.id

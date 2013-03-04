@@ -1,6 +1,6 @@
 from django import template
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django import forms
 
 from models import Observation, Assertion, Capability
@@ -19,16 +19,24 @@ S2FORM = {
 
 
 def index(request, mode='list'):
-  # List of latest things
-  # obs_list = Observation.objects.all().order_by('id')[:5]
+  # List of all lists.
   obs_list = Observation.objects.all()
   ass_list = Assertion.objects.all()
   cap_list = Capability.objects.all()
+  obs_list.cls = 'observation'
+  ass_list.cls = 'assertion'
+  cap_list.cls = 'capability'
+  obs_list.cls_plural = 'observations'
+  ass_list.cls_plural = 'assertions'
+  cap_list.cls_plural = 'capabilities'
+  obj_lists = [
+      obs_list,
+      ass_list,
+      cap_list,
+  ]
   context = {
       'view_mode': mode,
-      'obs_list': obs_list,
-      'ass_list': ass_list,
-      'cap_list': cap_list,
+      'obj_lists': obj_lists,
   }
   return render(request, 'amdb/index.html', context)
 
@@ -48,7 +56,7 @@ def examine(request, cls, id, edit=False):
       edit = objform(request.POST, instance=obj)
       if edit.is_valid():
         edit.save()
-        return index(request)
+        return redirect('/')
     else:
       edit = objform(instance=obj)
   return render(
@@ -63,15 +71,19 @@ def edit(request, cls, id):
     raise Http404
   return examine(request, cls, id, edit=True)
 
-def new(request, cls): return edit(request, cls, 0)
-
+def new(request, cls): return edit(request, cls, '0')
 
 def imply(request, assertion_id):
   return HttpResponse('creating implication from assertion: %s' % assertion_id)
 
 def nuke(request):
+  return HttpResponse('are you sure? :( ')
+
+def nuke_fo_realz(request):
   Observation.objects.all().delete()
-  return HttpResponse('Asplodeded!')
+  Assertion.objects.all().delete()
+  Capability.objects.all().delete()
+  return index(request)
 
 #render_to_response(
 #      'index.html', {}, 

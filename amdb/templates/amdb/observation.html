@@ -1,6 +1,8 @@
 {% if edit %}
 
-{{ edit.as_ul }}
+{{ edit.as_p }}
+
+{{ field.value }}
 
 {% for field in edit %}
 {% comment %}
@@ -14,9 +16,6 @@
 
 {% else %}
 
-<li>ID: {{ obj.id }}</li>
-<li>Description: "{{ obj.description }}"</li>
-<li>Domain: "{{ obj.domain }}"</li>
-<li>Blob: {{ obj.blob }}</li>
+{{ obj }}
 
 {% endif %}

@@ -19,4 +19,5 @@ urlpatterns = patterns('',
   url(r'^(?P<cls>\w+)/new$', 'amdb.views.new', name='new'),
 
   url(r'^nuke/$', 'amdb.views.nuke', name='nuke'),
+  url(r'^nuke/yes$', 'amdb.views.nuke_fo_realz', name='nuke_fo_realz'),
 )
