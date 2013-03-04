@@ -30,7 +30,7 @@ View Mode: {{ view_mode }}
 {% if ass_list %}
   <ul class="obj-list">
   {% for ass in ass_list %}
-    <li><a href="/assertion/{{ ass.id }}/">{{ ass.description }}</a></li>
+    <li><a href="/assertion/{{ ass.id }}/">{{ ass }}</a></li>
   {% endfor %}
   </ul>
 {% else %}
@@ -45,7 +45,7 @@ View Mode: {{ view_mode }}
 {% if cap_list %}
   <ul class="obj-list">
   {% for cap in cap_list %}
-    <li><a href="/capability/{{ cap.id }}/">{{ cap.description }}</a></li>
+    <li><a href="/capability/{{ cap.id }}/">{{ cap }}</a></li>
   {% endfor %}
   </ul>
 {% else %}

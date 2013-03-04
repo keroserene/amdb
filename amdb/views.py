@@ -70,6 +70,7 @@ def imply(request, assertion_id):
   return HttpResponse('creating implication from assertion: %s' % assertion_id)
 
 def nuke(request):
+  Observation.objects.all().delete()
   return HttpResponse('Asplodeded!')
 
 #render_to_response(
