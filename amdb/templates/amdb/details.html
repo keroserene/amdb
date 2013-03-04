@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}obs{% endblock %}
-
 {% block content %}
-<h2>{% block object_class %}{% endblock %} Details</h2>
 
-<ul class="deets">{% block details %}{% endblock %}</ul>
+<h2>{{ obj_class }} Details
+{% if edit  %} - Edit Mode{% endif %}
+</h2>
+
+<ul class="deets">
+  {% include templ_path %}
+</ul>
 
 <div class="ops">
-  <a href="{% url 'edit' 0 %}">Edit</a>
-  <a href="{% url 'index' %}">Back</a>
-</div>
 
+  {% if edit %}
+    <a href="{% url 'done' obj.id %}">Save</a>
+    <a href="{% url 'index' %}">Cancel</a>
+  {% else %}
+    <a href="{% url 'edit' obj_class obj.id %}">Edit</a>
+    <a href="{% url 'index' %}">Back</a>
+  {% endif %}
+
+</div>
 
 {% endblock %}

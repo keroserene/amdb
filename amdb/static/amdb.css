@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: default;
 }
 .ops {
-  background-color: #222;
+  border-top: 1px solid #eee;
   width: 100%;
 }
 .ops a {
@@ -78,7 +78,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   padding: 2px 24px;
   margin: 0 0;
-  background-color: #000;
+  background-color: #bbb;
 }
 .ops a:hover {
   color: #000;
@@ -87,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 .deets {
   list-style: square;
   border: 1px solid #888;
-  padding-top: 4px;
+  padding: 4px 24px;
 }
 
 .obj-list {

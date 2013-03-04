@@ -4,10 +4,8 @@ class Domain(models.Model):
   name = models.CharField(max_length=32)
   description = models.CharField(max_length=256)
 
-
 class _AMDB_Obj(models.Model):
   pass
-
 
 class Observation(_AMDB_Obj):
   # blob = models.r()

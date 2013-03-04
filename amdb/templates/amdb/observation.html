@@ -1,9 +1,17 @@
-{% extends 'amdb/details.html' %}
-{% block title %}Observation{% endblock %}
-{% block object_class %}Observation{% endblock %}
-{% block details %}
-<li>ID: {{ obs.id }}</li>
-<li>Description: "{{ obs.description }}"</li>
-<li>Domain: "{{ obs.domain }}"</li>
-<li>Blob: {{ obs.blob }}</li>
-{% endblock %}
+{% if edit %}
+
+<form action="POST">
+<li>ID: {{ obj.id }}</li>
+<li>Description: <input type="text" value="{{ obj.description }}" /></li>
+<li>Domain: "{{ obj.domain }}"</li>
+<li>Blob: {{ obj.blob }}</li>
+</form>
+
+{% else %}
+
+<li>ID: {{ obj.id }}</li>
+<li>Description: "{{ obj.description }}"</li>
+<li>Domain: "{{ obj.domain }}"</li>
+<li>Blob: {{ obj.blob }}</li>
+
+{% endif %}

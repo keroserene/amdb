@@ -10,7 +10,7 @@ View Mode: NA
 
 <div class="box">
 <h3>observations
-<a class="add" href="">[+] new</a><br/>
+<a class="add" href="">[+ new]</a><br/>
 </h3>
 {% if obs_list %}
   <ul class="obj-list">
@@ -25,7 +25,7 @@ View Mode: NA
 
 <div class="box">
 <h3>assertions
-<a class="add" href="">[+] new</a><br/>
+<a class="add" href="">[+ new]</a><br/>
 </h3>
 {% if ass_list %}
   <ul class="obj-list">
@@ -40,7 +40,7 @@ View Mode: NA
 
 <div class="box">
 <h3>capabilities
-<a class="add" href="">[+] new</a><br/>
+<a class="add" href="">[+ new]</a><br/>
 </h3>
 {% if cap_list %}
   <ul class="obj-list">
@@ -56,7 +56,7 @@ View Mode: NA
 <div class="ops">
 <a href="/">Help</a>
 <a href="/">Info</a>
-<a href="/">Nuke All The Things</a>
+<a href="{% url 'nuke' %}">Nuke All The Things</a>
 </div>
 
 <h3>interact</h3>

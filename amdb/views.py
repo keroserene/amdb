@@ -1,4 +1,4 @@
-from django.template import RequestContext
+from django import template
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, get_object_or_404
 
@@ -17,24 +17,41 @@ def index(request):
   }
   return render(request, 'amdb/index.html', context)
 
-def observation(request, observation_id):
-  # obs = Observation.objects.get(pk=observation_id)
+def edit(request, edit_class, id):
+  if 'observation' is edit_class:
+    return observation(request, id, edit=True)
+  return observation(request, id, edit=True)
+
+def _AMDBcontext(obj_class, obj, edit):
+  return {'obj_class': obj_class,
+          'templ_path': 'amdb/%s.html' % obj_class,
+          'obj': obj,
+          'edit': edit}
+
+def observation(request, observation_id, edit=False):
   obs = get_object_or_404(Observation, pk=observation_id)
-  return render(request, 'amdb/observation.html', {'obs': obs})
-  # return HttpResponse('viewing details for observation: %s' % observation_id)
+  return render(request, 'amdb/details.html', _AMDBcontext('observation', obs, edit))
  
 def assertion(request, assertion_id):
   ass = get_object_or_404(Assertion, pk=assertion_id)
-  return HttpResponse('viewing details for assertion: %s' % assertion_id)
+  return render(request, 'amdb/details.html', _AMDBcontext('assertion', ass, edit))
 
 def capability(request, capability_id):
-  return HttpResponse('viewing details for capability: %s' % capability_id)
+  cap = get_object_or_404(Capability, pk=capability_id)
+  return render(request, 'amdb/details.html', _AMDBcontext('capability', cap, edit))
 
 def imply(request, assertion_id):
   return HttpResponse('creating implication from assertion: %s' % assertion_id)
 
-def edit(request, obj_id):
-  pass
+
+def nuke(request):
+  return HttpResponse('Asplodeded!')
+
 #render_to_response(
 #      'index.html', {}, 
 #      context_instance=RequestContext(request))
+#
+
+#@register.assignment_tag
+#def set_var(x):
+#  return x
