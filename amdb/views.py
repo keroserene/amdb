@@ -5,23 +5,32 @@ from django import forms
 
 from models import Observation, Assertion, Capability
 
-def index(request):
+class ObservationForm(forms.ModelForm):
+  class Meta: model = Observation
+class AssertionForm(forms.ModelForm):
+  class Meta: model = Assertion
+class CapabilityForm(forms.ModelForm):
+  class Meta: model = Capability
+VALID_CLASSES = ['observation', 'assertion', 'capability']
+S2CLASS = {
+  'observation': Observation, 'assertion': Assertion, 'capability': Capability}
+S2FORM = {
+  'observation': ObservationForm, 'assertion': AssertionForm, 'capability': CapabilityForm}
+
+
+def index(request, mode='list'):
   # List of latest things
   # obs_list = Observation.objects.all().order_by('id')[:5]
   obs_list = Observation.objects.all()
   ass_list = Assertion.objects.all()
   cap_list = Capability.objects.all()
   context = {
+      'view_mode': mode,
       'obs_list': obs_list,
       'ass_list': ass_list,
       'cap_list': cap_list,
   }
   return render(request, 'amdb/index.html', context)
-
-def edit(request, edit_class, id):
-  if 'observation' is edit_class:
-    return observation(request, id, edit=True)
-  return observation(request, id, edit=True)
 
 def _AMDBcontext(obj_class, obj, edit):
   return {'obj_class': obj_class,
@@ -29,32 +38,36 @@ def _AMDBcontext(obj_class, obj, edit):
           'obj': obj,
           'edit': edit}
 
-class ObservationForm(forms.ModelForm):
-  class Meta:
-    model = Observation
-
-def observation(request, observation_id, edit=False):
-  obs = get_object_or_404(Observation, pk=observation_id)
+def examine(request, cls, id, edit=False):
+  """Generic data examination view."""
+  # Fetch the object if it exists. '0' is reserved for creating new elements.
+  obj = None if '0' == id else get_object_or_404(S2CLASS[cls], pk=id)
+  objform = S2FORM[cls]
   if edit:
     if 'POST' == request.method:
-      edit = ObservationForm(request.POST, instance=obs)
+      edit = objform(request.POST, instance=obj)
       if edit.is_valid():
         edit.save()
-        return observation(request, observation_id)
-    edit = ObservationForm(instance=obs)
-  return render(request, 'amdb/details.html', _AMDBcontext('observation', obs, edit))
- 
-def assertion(request, assertion_id):
-  ass = get_object_or_404(Assertion, pk=assertion_id)
-  return render(request, 'amdb/details.html', _AMDBcontext('assertion', ass, edit))
+        return index(request)
+    else:
+      edit = objform(instance=obj)
+  return render(
+      request, 'amdb/examine.html',
+      {'obj_class': cls, 'templ_path': 'amdb/%s.html' % cls,
+       'obj': obj, 'edit': edit})
 
-def capability(request, capability_id):
-  cap = get_object_or_404(Capability, pk=capability_id)
-  return render(request, 'amdb/details.html', _AMDBcontext('capability', cap, edit))
+
+def edit(request, cls, id):
+  """Generic data editing view."""
+  if cls not in VALID_CLASSES:
+    raise Http404
+  return examine(request, cls, id, edit=True)
+
+def new(request, cls): return edit(request, cls, 0)
+
 
 def imply(request, assertion_id):
   return HttpResponse('creating implication from assertion: %s' % assertion_id)
-
 
 def nuke(request):
   return HttpResponse('Asplodeded!')

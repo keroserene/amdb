@@ -5,19 +5,19 @@
 <h1>AMdb</h1>
 
 <div>
-View Mode: NA
+View Mode: {{ view_mode }}
 </div>
 
 <div class="box">
 <h3>observations
-<a class="add" href="">[+ new]</a><br/>
+<a class="add" href="{% url 'edit' 'observation' 0 %}">[+ new]</a><br/>
 </h3>
 {% if obs_list %}
   <ul class="obj-list">
   {% for obs in obs_list %}
-    <li><a href="/observation/{{ obs.id }}/">{{ obs.description }}</a></li>
+    <li><a href="/observation/{{ obs.id }}/">{{ obs }}</a></li>
   {% endfor %}
-</ul>
+  </ul>
 {% else %}
   <p class="note">[No observations yet]</p>
 {% endif %}
@@ -25,7 +25,7 @@ View Mode: NA
 
 <div class="box">
 <h3>assertions
-<a class="add" href="">[+ new]</a><br/>
+<a class="add" href="{% url 'edit' 'assertion' 0 %}">[+ new]</a><br/>
 </h3>
 {% if ass_list %}
   <ul class="obj-list">
@@ -40,7 +40,7 @@ View Mode: NA
 
 <div class="box">
 <h3>capabilities
-<a class="add" href="">[+ new]</a><br/>
+<a class="add" href="{% url 'edit' 'capability' 0 %}">[+ new]</a><br/>
 </h3>
 {% if cap_list %}
   <ul class="obj-list">

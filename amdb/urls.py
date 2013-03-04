@@ -3,23 +3,20 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-  # Examples:
   url(r'^$', 'amdb.views.index', name='index'),
-  # url(r'^amdb/', include('amdb.foo.urls')),
+
   # Uncomment the admin/doc line below to enable admin documentation:
-  # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-  # Uncomment the next line to enable the admin:
+  url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
   url(r'^admin/$', include(admin.site.urls), name='admin'),
 
-  url(r'^observation/(?P<observation_id>\d+)/edit$', 'amdb.views.observation', {'edit': 'True'}, name='edit-obs'),
+  # Data examination pages
+  url(r'^observation/(?P<id>\d+)/$', 'amdb.views.examine', {'cls': 'observation'}, name='observation'),
+  url(r'^assertion/(?P<id>\d+)/$', 'amdb.views.examine', {'cls': 'assertion'},  name='assertion'),
+  url(r'^capability/(?P<id>\d+)/$', 'amdb.views.examine', {'cls': 'capability'}, name='capability'),
 
-  url(r'^(?P<edit_type>\w+)/(?P<edit_id>\d+)/edit$', 'amdb.views.edit', name='edit'),
-
-  url(r'^observation/(?P<observation_id>\d+)$', 'amdb.views.observation', name='done'),
-
-  url(r'^observation/(?P<observation_id>\d+)/$', 'amdb.views.observation', name='observation'),
-  url(r'^assertion/(?P<assertion_id>\d+)/$', 'amdb.views.assertion', name='assertion'),
-  url(r'^capability/(?P<capability_id>\d+)/$', 'amdb.views.capability', name='capability'),
+  # Data editing / creation pages
+  url(r'^(?P<cls>\w+)/(?P<id>\d+)/edit$', 'amdb.views.edit', name='edit'),
+  url(r'^(?P<cls>\w+)/new$', 'amdb.views.new', name='new'),
 
   url(r'^nuke/$', 'amdb.views.nuke', name='nuke'),
 )
